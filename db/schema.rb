@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017182627) do
+ActiveRecord::Schema.define(version: 20161109222029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,63 @@ ActiveRecord::Schema.define(version: 20161017182627) do
   add_index "companies", ["sub_category_id"], name: "index_companies_on_sub_category_id", using: :btree
   add_index "companies", ["target_client_id"], name: "index_companies_on_target_client_id", using: :btree
 
+  create_table "funding_rounds", force: :cascade do |t|
+    t.string   "web_path"
+    t.string   "funding_type"
+    t.string   "series"
+    t.string   "series_qualifier"
+    t.date     "announced_on"
+    t.date     "closed_on"
+    t.integer  "money_raised"
+    t.string   "money_raised_currency_code"
+    t.integer  "money_raised_usd"
+    t.integer  "target_money_raised"
+    t.string   "target_money_raised_currency_code"
+    t.integer  "target_money_raised_usd"
+    t.integer  "company_id"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "funding_rounds", ["company_id"], name: "index_funding_rounds_on_company_id", using: :btree
+
+  create_table "investments", force: :cascade do |t|
+    t.string   "investment_type"
+    t.integer  "money_invested"
+    t.string   "money_invested_currency_code"
+    t.integer  "money_invested_usd"
+    t.boolean  "is_lead_investor"
+    t.integer  "investor_id"
+    t.integer  "funding_round_id"
+    t.integer  "company_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "investments", ["company_id"], name: "index_investments_on_company_id", using: :btree
+  add_index "investments", ["funding_round_id"], name: "index_investments_on_funding_round_id", using: :btree
+  add_index "investments", ["investor_id"], name: "index_investments_on_investor_id", using: :btree
+
+  create_table "investors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "permalink"
+    t.string   "web_path"
+    t.string   "homepage_url"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "news", force: :cascade do |t|
+    t.string   "title"
+    t.string   "author"
+    t.string   "url"
+    t.integer  "funding_round_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "news", ["funding_round_id"], name: "index_news_on_funding_round_id", using: :btree
+
   create_table "sub_categories", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -130,6 +187,11 @@ ActiveRecord::Schema.define(version: 20161017182627) do
   add_foreign_key "companies", "categories"
   add_foreign_key "companies", "sub_categories"
   add_foreign_key "companies", "target_clients"
+  add_foreign_key "funding_rounds", "companies"
+  add_foreign_key "investments", "companies"
+  add_foreign_key "investments", "funding_rounds"
+  add_foreign_key "investments", "investors"
+  add_foreign_key "news", "funding_rounds"
   add_foreign_key "sub_categories", "categories"
   add_foreign_key "taggings", "companies"
   add_foreign_key "taggings", "tags"

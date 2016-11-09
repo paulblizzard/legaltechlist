@@ -2,6 +2,8 @@ class Company < ActiveRecord::Base
   before_update :publish_tweet, :if => :visible_changed?
   before_update :publish_to_list, :if => :visible_changed?
 
+  has_many :funding_rounds
+  has_many :investments
   has_many :taggings,  dependent: :destroy
   has_many :tags, through: :taggings
   

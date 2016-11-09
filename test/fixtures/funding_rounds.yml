@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  web_path: MyString
+  funding_type: MyString
+  series: MyString
+  series_qualifier: MyString
+  announced_on: 2016-11-09
+  closed_on: 2016-11-09
+  money_raised: 1
+  money_raised_currency_code: MyString
+  money_raised_usd: 1
+  target_money_raised: 1
+  target_money_raised_currency_code: MyString
+  target_money_raised_usd: 1
+
+two:
+  web_path: MyString
+  funding_type: MyString
+  series: MyString
+  series_qualifier: MyString
+  announced_on: 2016-11-09
+  closed_on: 2016-11-09
+  money_raised: 1
+  money_raised_currency_code: MyString
+  money_raised_usd: 1
+  target_money_raised: 1
+  target_money_raised_currency_code: MyString
+  target_money_raised_usd: 1

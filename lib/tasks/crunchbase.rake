@@ -9,14 +9,7 @@ task :update_cb => :environment do
 		#Update if FundingRound exists (need to create)
 		#Insert if FundingRound does not exist
 
-		#Get CB IPOs
-		#Check IPO update times
-		#Update if IPO exists (need to create)
-		#Insert if IPO does not exist
 
-		#Check Acquisitions update times
-		#Update if Acquisition exists (need to create)
-		#Insert if Acquisition does not exist
 
 	#Insert a sync record (need to create)
 
